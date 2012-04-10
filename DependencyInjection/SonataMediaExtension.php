@@ -89,7 +89,8 @@ class SonataMediaExtension extends Extension
             $formats = array();
 
             foreach ($settings['formats'] as $format => $value) {
-                $formats[$name.'_'.$format] = $value;
+                //$formats[$name.'_'.$format] = $value;
+                $formats[$format] = $value;
             }
 
             $strategies[] = $settings['download']['strategy'];

@@ -78,7 +78,23 @@ abstract class BaseProvider implements MediaProviderInterface
      */
     public function addFormat($name, $format)
     {
-        $this->formats[$name] = $format;
+        if ($name == "admin") {
+            // this will be invoked when building the container
+            // add the admin format to all context's
+            foreach($this->formats as $k => $v) {
+                if (!isset($this->formats[$k]["admin"])) {
+                    $this->formats[$k]["admin"] = $format;
+                }
+            }
+        } else {
+            // we check if we have a underscore 
+            if (strpos($name, '_') !== false) {
+                list($context, $slug) = explode('_', $name);
+                $this->formats[$context][$slug] = $format;
+            } else {
+                $this->formats["default"][$name] = $format;
+            }
+        }
     }
 
     /**
@@ -118,6 +134,9 @@ abstract class BaseProvider implements MediaProviderInterface
      */
     public function getFormatName(MediaInterface $media, $format)
     {
+        return $format;
+        
+        /*
         if ($format == 'admin') {
             return 'admin';
         }
@@ -132,6 +151,8 @@ abstract class BaseProvider implements MediaProviderInterface
         }
 
         return $baseName.$format;
+         * 
+         */
     }
 
     /**
@@ -159,9 +180,9 @@ abstract class BaseProvider implements MediaProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function getFormats()
+    public function getFormats($context = 'default')
     {
-        return $this->formats;
+        return isset($this->formats[$context]) ? $this->formats[$context] : $this->formats;
     }
 
     /**

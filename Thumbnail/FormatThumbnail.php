@@ -60,9 +60,15 @@ class FormatThumbnail implements ThumbnailInterface
             return;
         }
 
-        $referenceFile = $provider->getReferenceFile($media);
+        // make this thing context aware
+        $formats = $provider->getFormats($media->getContext());
+        if ($formats == false) {
+            return;
+        }
         
-        foreach ($provider->getFormats() as $format => $settings) {
+        $referenceFile = $provider->getReferenceFile($media);
+                
+        foreach ($formats as $format => $settings) {        
             $provider->getResizer()->resize(
                 $media,
                 $referenceFile,
