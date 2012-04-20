@@ -29,7 +29,7 @@ class GalleryHasMediaAdmin extends Admin
         } else {
             $link_parameters = array();
         }
-
+        
         $formMapper
             ->add('media', 'sonata_type_model', array(), array(
                 'edit' => 'list',
