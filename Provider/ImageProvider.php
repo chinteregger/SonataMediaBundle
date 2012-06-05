@@ -47,7 +47,7 @@ class ImageProvider extends FileProvider
         if ($format == 'reference') {
             $box = $media->getBox();
         } else {
-            $box = $this->resizer->getBox($media, $this->getFormat($format));
+            $box = $this->resizer->getBox($media, $this->getFormat($format, $media->getContext()));
         }
 
         return array_merge(array(

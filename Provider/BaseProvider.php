@@ -100,9 +100,9 @@ abstract class BaseProvider implements MediaProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function getFormat($name)
+    public function getFormat($name, $context = "default")
     {
-        return isset($this->formats[$name]) ? $this->formats[$name] : false;
+        return isset($this->formats[$context][$name]) ? $this->formats[$context][$name] : false;
     }
 
     /**

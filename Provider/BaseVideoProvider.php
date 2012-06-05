@@ -189,7 +189,7 @@ abstract class BaseVideoProvider extends BaseProvider
             );
 
         } else {
-            $settings = $this->getFormat($format);
+            $settings = $this->getFormat($format, $media->getContext());
         }
 
         return $this->resizer->getBox($media, $settings);
