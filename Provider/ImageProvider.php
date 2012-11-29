@@ -51,7 +51,7 @@ class ImageProvider extends FileProvider
         }
 
         return array_merge(array(
-            'title'    => $media->getName(),
+            'alt'    => $media->getName(),
             'src'      => $this->generatePublicUrl($media, $format),
             'width'    => $box->getWidth(),
             'height'   => $box->getHeight()
